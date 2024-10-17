@@ -1,8 +1,8 @@
 import axiosInstance from "@api";
-import { SignIn, SignUp } from "../types";
+import { SignInTypes, SignUp } from "../types";
 // ======= Sign In =========
 
-export async function signIn (data: SignIn){
+export async function signIn (data: SignInTypes){
     return await axiosInstance.post("/auth/sign-in", data)
 }
 

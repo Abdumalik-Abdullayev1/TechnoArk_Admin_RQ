@@ -1,5 +1,11 @@
 export interface ParamsType {
-    search: string,
-    limit: number,
-    page: number
+    search?: string | undefined,
+    limit?: number | undefined,
+    page?: number | undefined
+}
+export interface ModalPropType{
+    id?: number | string,
+    open: boolean,
+    update: any,
+    handleCancel: ()=>void
 }

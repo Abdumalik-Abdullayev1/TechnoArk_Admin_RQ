@@ -1,9 +1,13 @@
-import SignIn from "./auth/pages/sign-in";
-import SignUp from "./auth/pages/sign-up";
-import Admin from "./admin-layout";
-import Products from "./products/pages/products";
-import Category from "./category/pages";
+import loadable from '@loadable/component'
+import { Spinner } from '../components';
 
+
+
+const SignIn = loadable(()=> import("./auth/pages/sign-in"), {fallback: <Spinner/>})
+const SignUp = loadable(()=> import("./auth/pages/sign-up"), {fallback: <Spinner/>})
+const Admin = loadable(()=> import("./admin-layout"), {fallback: <Spinner/>})
+const Products = loadable(()=> import("./products/pages/products"), {fallback: <Spinner/>})
+const Category = loadable(()=> import("./category/pages"), {fallback: <Spinner/>})
 
 export {
     SignIn,

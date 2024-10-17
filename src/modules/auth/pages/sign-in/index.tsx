@@ -1,27 +1,13 @@
 import { Button, Form, Input } from 'antd';
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { SignInTypes } from '../../types';
 import { useSignInMutation } from '../../hooks/mutations';
 import logo from '../../../../assets/erp_logo.png'
 
 const SignIn = () => {
-    const navigate = useNavigate()
     const { mutate } = useSignInMutation()
-    const onFinish = async (values: any) => {
-        mutate({
-            phone_number: values.phone_number,
-            password: values.password,
-        },
-        {
-            onSuccess: (response: any) => {
-                if (response.status === 201) {
-                    navigate('/admin-layout');
-                }
-            },
-            onError: (error) => {
-                console.error(error);
-            },
-        })
-        
+    const onFinish = async (values: SignInTypes) => {
+        mutate(values)  
     };
     const onFinishFailed = () => {
         console.log('Failed:');

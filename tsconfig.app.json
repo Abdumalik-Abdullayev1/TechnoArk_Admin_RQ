@@ -10,7 +10,8 @@
       "@modules": ["./src/modules"],
       "@api": ["./src/api"],
       "@service": ["./src/service"],
-      "@types": ["./src/types"]
+      "@types": ["./src/types"],
+      "@components": ["./src/components"]
     },
 
     /* Bundler mode */
