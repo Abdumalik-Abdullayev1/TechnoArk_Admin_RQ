@@ -13,4 +13,4 @@ export interface PaginationType {
     pageSize: number;
     pageSizeOptions: number[];
     showSizeChanger: boolean;
-}
+}   

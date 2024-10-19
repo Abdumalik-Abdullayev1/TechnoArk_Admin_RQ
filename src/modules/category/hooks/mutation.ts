@@ -8,12 +8,18 @@ export function useCreateCategory() {
     const queryClient = useQueryClient()
     return useMutation({
         mutationFn: async (data: CategoryType) => createCategory(data),
-        onSuccess: async (data) => {
-            console.log(data);
+        onSuccess: async (response) => {
+            Notification({
+                type: "success",
+                message: response?.message,
+            });
         },
         onSettled: async (_, error) => {
             if (error) {
-                //  notification error
+                Notification({
+                    type: "success",
+                    message: error?.message,
+                });
             } else {
                 await queryClient.invalidateQueries({ queryKey: ["category"] })
             }

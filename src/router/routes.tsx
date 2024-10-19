@@ -19,7 +19,7 @@ const admin = [
     },
     {
         content: "Brands",
-        path: "/admin-layout/brands",
+        path: "/admin-layout/brand",
         icon: <AppstoreOutlined/>
     },
     {

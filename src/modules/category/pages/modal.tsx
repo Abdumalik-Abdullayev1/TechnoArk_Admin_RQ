@@ -21,7 +21,7 @@ const PageModal = ({ open, handleCancel, update }: ModalPropType) => {
         }
     }, [open, update, form])
     const handleSubmit = (values: CategoryType) => {
-        if (update.id) {
+        if (update) {
             const payload = { ...values, id: update?.id }
             updateMutate(payload, {
                 onSuccess: () => {

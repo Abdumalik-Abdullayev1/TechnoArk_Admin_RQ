@@ -6,6 +6,7 @@ import {
     Admin,
     Products,
     Category,
+    Brands
 } from '@modules'
 
 
@@ -18,6 +19,7 @@ const Router = () => {
                 <Route path="admin-layout" element={<Admin/>}>
                     <Route index element={<Products/>}/>
                     <Route path="category" element={<Category/>}/>
+                    <Route path="brand" element={<Brands/>}/>
                 </Route>
             </Route>
         )
