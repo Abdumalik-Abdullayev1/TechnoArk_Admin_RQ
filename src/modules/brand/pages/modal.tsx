@@ -1,7 +1,8 @@
 import { useForm } from "antd/lib/form/Form";
-import { Button, Form, Input, Modal, Select, Upload } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { useEffect, useState } from "react";
 import { ModalPropType } from "@types";
+import { Upload } from "@components";
 import { BrandType } from "../types";
 import { useGetCategory } from "../../category/hooks/queries";
 import { useCreateBrand, useUpdateBrand } from "../hooks/mutations";
@@ -30,47 +31,39 @@ const PageModal = ({ open, handleCancel, update }: ModalPropType) => {
     }
   }, [open, update, form]);
 
-  const handleFileChange = (info: any) => {
-    if (info.file.status === 'done') {
-      setFile(info.file);
-    } else if (info.file.status === 'error') {
-      setFile(null);
-    }
-  };
-
   const handleSubmit = async (values: BrandType) => {
-    if (!file && !update) {
+    const selectedFile = file?.originFileObj || file
+    if (!selectedFile) {
+      form.setFields([
+        {
+          name: "file",
+          errors: ["Upload File"]
+        }
+      ])
       return;
     }
-    const selectedFile = file?.originFileObj || file
-    const formData = new FormData()
+    const formData = new FormData();
     formData.append("name", values.name),
       formData.append("description", values.description)
     if (values.category_id) {
       formData.append("category_id", values.category_id)
     }
     formData.append("file", selectedFile)
-    const payload: BrandType = {
-      name: values.name,
-      description: values.description,
-      image: selectedFile,
-      category_id: values.category_id,
-    };
     if (update) {
-    const updatePayload = { ...payload, id: update.id };
-    updateMutate(updatePayload, {
-      onSuccess: () => {
-        handleCancel();
-      },
-    });
-  } else {
-    createMutate(formData, {
-      onSuccess: () => {
-        handleCancel();
-      },
-    });
-  }
-};
+      const payload = { ...values, id: update.id, categoryId: values.category_id };
+      updateMutate(payload, {
+        onSuccess: () => {
+          handleCancel();
+        },
+      });
+    } else {
+      createMutate(formData, {
+        onSuccess: () => {
+          handleCancel();
+        },
+      });
+    }
+  };
 
   return (
     <Modal
@@ -107,17 +100,23 @@ const PageModal = ({ open, handleCancel, update }: ModalPropType) => {
           </Select>
         </Form.Item>
 
-        {!update?.id && (
-          <Form.Item
-            label="Brand Image"
+        {
+          !update && <Form.Item
+            label="Brand logo"
             name="file"
-            rules={[{ required: true, message: "Upload brand image" }]}
+            rules={[
+              {
+                required: true,
+                validator: () =>
+                  file
+                    ? Promise.resolve()
+                    : Promise.reject("Please upload a file"),
+              },
+            ]}
           >
-            <Upload onChange={handleFileChange}>
-              <Button>Upload</Button>
-            </Upload>
+            <Upload setFile={setFile} />
           </Form.Item>
-        )}
+        }
 
         <Form.Item
           label="Description"

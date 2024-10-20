@@ -4,7 +4,8 @@ import { CategoryType } from "../types";
 
 // ============= GET ============
 export const getCategory = async (params: ParamsType) => {
-    return await axiosInstance.get("category/search", { params })
+    const response = await axiosInstance.get("category/search", { params })
+    return response.data?.data
 }
 
 // ============= CREATE ============

@@ -21,6 +21,7 @@ const Index = () => {
     })
     const { search } = useLocation()
     const { data } = useGetBrand(params)
+    const { brands, count } = data || {}
     const { mutate: deleteBrand } = useDeleteBrand()
 
     useEffect(() => {
@@ -63,7 +64,7 @@ const Index = () => {
                     <ConfirmDelete
                         title="Delete category?"
                         description="Are you sure to delete this category?"
-                        onConfirm={() => deleteData(record.category_id)}
+                        onConfirm={() => deleteData(record.id)}
                     >
                         <Tooltip title="Delete">
                             <Button style={{ width: "45px", color: "#d55200", borderColor: "#d55200" }}>
@@ -114,12 +115,12 @@ const Index = () => {
                 <Button type='primary' className='btn' onClick={()=> setModalVisible(true)}>Add Brand</Button>
             </div>
             <GlobalTable
-            data={data?.data?.data?.brands}
+            data={brands}
             columns={columns}
             pagination={{
                 current: params.page,
                 pageSize: params.limit,
-                total: data?.data?.data?.count,
+                total: count,
                 showSizeChanger: true,
                 pageSizeOptions: ['2', '5', '7', '10']
             }}

@@ -18,7 +18,7 @@ const Index = () => {
     });
     const navigate = useNavigate();
     const { search } = useLocation()
-    const { data } = useGetCategory(params)
+    const { categories, count } = useGetCategory(params)?.data || {}
     const { mutate: deleteCategory } = useDeleteCategory()
 
     const handleTableChange = (pagination: PaginationType) => {
@@ -127,12 +127,12 @@ const Index = () => {
                 <Button type="primary" className="btn" onClick={() => setModalVisible(true)}>Add Category</Button>
             </div>
             <GlobalTable
-                data={data?.data?.data?.categories}
+                data={categories}
                 columns={columns}
                 pagination={{
                     current: params.page,
                     pageSize: params.limit,
-                    total: data?.data?.data?.count,
+                    total: count,
                     showSizeChanger: true,
                     pageSizeOptions: ['2', '5', '7', '10'],
                 }}

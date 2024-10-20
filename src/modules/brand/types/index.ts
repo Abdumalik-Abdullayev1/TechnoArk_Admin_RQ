@@ -7,8 +7,9 @@ export interface PaginationType {
 }
 
 export interface BrandType {
+    id?: string | number,
     name: string,
     description: string,
-    image: File | null,
-    category_id: number | any, 
+    file?: FormData,
+    category_id?: string | any, 
 }

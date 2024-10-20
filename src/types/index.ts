@@ -13,7 +13,7 @@ export interface ModalPropType{
 
 export interface ColumnsType {
     name: string;
-    category_id?: string | number;
+    id?: string | number;
     file?: string;
     createdAt: string;
     lastUpdateAt: string;
