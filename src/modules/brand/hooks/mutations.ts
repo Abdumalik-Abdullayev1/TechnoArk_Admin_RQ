@@ -17,7 +17,7 @@ export function useCreateBrand() {
     onSettled:(_,error)=>{
         if(error){
             Notification({
-                    type: "success",
+                    type: "error",
                     message: error?.message,
                 });
         }else {

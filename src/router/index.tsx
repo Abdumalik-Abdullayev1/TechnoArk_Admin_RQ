@@ -6,7 +6,8 @@ import {
     Admin,
     Products,
     Category,
-    Brands
+    Brands,
+    BrandCategory
 } from '@modules'
 
 
@@ -20,6 +21,7 @@ const Router = () => {
                     <Route index element={<Products/>}/>
                     <Route path="category" element={<Category/>}/>
                     <Route path="brand" element={<Brands/>}/>
+                    <Route path="brand-category" element={<BrandCategory/>}/>
                 </Route>
             </Route>
         )
