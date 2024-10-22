@@ -2,7 +2,8 @@ export interface ParamsType {
     search?: string | undefined,
     limit?: number | undefined,
     page?: number | undefined,
-    categories?: any
+    categories?: any,
+    categoryId?: string | number
 }
 export interface ModalPropType{
     id?: number | string,
