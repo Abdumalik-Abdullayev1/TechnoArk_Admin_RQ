@@ -7,7 +7,9 @@ import {
     Products,
     Category,
     Brands,
-    BrandCategory
+    BrandCategory,
+    Ads,
+    Stock
 } from '@modules'
 
 
@@ -22,6 +24,8 @@ const Router = () => {
                     <Route path="category" element={<Category/>}/>
                     <Route path="brand" element={<Brands/>}/>
                     <Route path="brand-category" element={<BrandCategory/>}/>
+                    <Route path="ads" element={<Ads/>}/>
+                    <Route path="stock" element={<Stock/>}/>
                 </Route>
             </Route>
         )

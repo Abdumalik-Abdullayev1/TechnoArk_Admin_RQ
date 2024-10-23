@@ -3,7 +3,7 @@ import {
   MenuUnfoldOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu, Modal, theme } from 'antd';
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { admin } from '../../router/routes'
@@ -13,6 +13,7 @@ const { Header, Sider, Content } = Layout;
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedKey, setSelectedKey] = useState("")
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { pathname } = useLocation()
   const navigate = useNavigate();
 
@@ -26,8 +27,17 @@ const Index = () => {
   }, [pathname])
 
   const handleClick = () => {
-    localStorage.clear()
+    setIsModalVisible(true); // Modalni ko'rsatish
+  };
+
+  const handleOk = () => {
+    localStorage.clear();
+    setIsModalVisible(false); // Modalni yopish
     navigate('/');
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false); // Modalni yopish
   };
 
   return (
@@ -35,7 +45,6 @@ const Index = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <div className="flex">
-          {/* <img className="w-1/3" src={logo} alt="Logo" /> */}
           <h1 className="w-2/3 text-white p-6 bg-dark-blue font-bold text-lg">TechnoArt</h1>
         </div>
           <Menu
@@ -84,6 +93,18 @@ const Index = () => {
           <Outlet />
         </Content>
       </Layout>
+
+      {/* Modal */}
+      <Modal
+        title="Logout Confirmation"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="OK"
+        cancelText="Cancel"
+      >
+        <p>Are you sure you want to logout?</p>
+      </Modal>
     </Layout>
   );
 };

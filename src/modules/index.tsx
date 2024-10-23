@@ -10,6 +10,8 @@ const Products = loadable(()=> import("./products/pages"), {fallback: <Spinner/>
 const Category = loadable(()=> import("./category/pages"), {fallback: <Spinner/>})
 const Brands = loadable(()=> import("./brand/pages"), {fallback: <Spinner/>})
 const BrandCategory = loadable(()=> import("./brand-category/pages"), {fallback: <Spinner/>})
+const Ads = loadable(()=> import("./ads/pages"), {fallback: <Spinner/>})
+const Stock = loadable(()=> import("./stock/pages"), {fallback: <Spinner/>})
 
 export {
     SignIn,
@@ -18,5 +20,7 @@ export {
     Products,
     Category,
     Brands,
-    BrandCategory
+    BrandCategory,
+    Ads,
+    Stock
 }
