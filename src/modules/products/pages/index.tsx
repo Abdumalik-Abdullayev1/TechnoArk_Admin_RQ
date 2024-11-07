@@ -60,12 +60,12 @@ const Index = () => {
     setUpdate(null)
     setOpen(false)
   }
-  const handleSearch = (value: string) =>{
+  const handleSearch = (value: string) => {
     setParams((prev) => ({
-        ...prev,
-        search: value
+      ...prev,
+      search: value
     }))
-}
+  }
 
   const columns = [
     {
@@ -83,37 +83,37 @@ const Index = () => {
       title: "Action",
       key: "action",
       render: (_text: string, record: ColumnsType) => (
-          <Space size={"middle"}>
-              <Tooltip title="Edit">
-                  <Button
-                      type="default"
-                      onClick={() => editData(record)}
-                      icon={<EditOutlined />}
-                      style={{ width: "45px", color: "#d55200", borderColor: "#d55200" }}
-                  />
-              </Tooltip>
-              <ConfirmDelete
-                  title="Delete product?"
-                  description="Are you sure to delete this product?"
-                  onConfirm={() => deleteData(record.id)}
-              >
-                  <Tooltip title="Delete">
-                      <Button style={{ width: "45px", color: "#d55200", borderColor: "#d55200" }}>
-                          <DeleteOutlined />
-                      </Button>
-                  </Tooltip>
-              </ConfirmDelete>
-              <Tooltip title="View">
-                  <Button
-                      type="default"
-                      icon={<ArrowsAltOutlined />}
-                      onClick={() => navigate(`/admin-layout/category/${record.id}`)}
-                      style={{ width: "45px", color: "#d55200", borderColor: "#d55200" }}
-                  />
-              </Tooltip>
-          </Space>
+        <Space size={"middle"}>
+          <Tooltip title="Edit">
+            <Button
+              type="default"
+              onClick={() => editData(record)}
+              icon={<EditOutlined />}
+              style={{ width: "45px", color: "#d55200", borderColor: "#d55200" }}
+            />
+          </Tooltip>
+          <ConfirmDelete
+            title="Delete product?"
+            description="Are you sure to delete this product?"
+            onConfirm={() => deleteData(record.id)}
+          >
+            <Tooltip title="Delete">
+              <Button style={{ width: "45px", color: "#d55200", borderColor: "#d55200" }}>
+                <DeleteOutlined />
+              </Button>
+            </Tooltip>
+          </ConfirmDelete>
+          <Tooltip title="View">
+            <Button
+              type="default"
+              icon={<ArrowsAltOutlined />}
+              onClick={() => navigate(`/admin-layout/category/${record.id}`)}
+              style={{ width: "45px", color: "#d55200", borderColor: "#d55200" }}
+            />
+          </Tooltip>
+        </Space>
       ),
-  }
+    }
   ]
 
   return (
