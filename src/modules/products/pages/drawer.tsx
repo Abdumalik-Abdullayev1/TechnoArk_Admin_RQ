@@ -1,7 +1,7 @@
 import { useForm } from "antd/lib/form/Form"
 import { useState, useEffect } from 'react'
-import { Button, Col, Drawer, Form, Input, Row, Select } from 'antd';
-import { Upload } from "@components";
+import { Button, Col, Drawer, Form, Input, Row, Select, Upload } from 'antd';
+import { UploadOutlined } from "@ant-design/icons";
 import { ModalPropType } from "@types"
 import { useGetCategory } from "../../category/hooks/queries";
 import { useBrandById, useBrandCategoryById } from "../hooks/queries";
@@ -11,7 +11,6 @@ const DrawerModal = ({ open, update, handleCancel }: ModalPropType) => {
     const [form] = useForm()
     const [categoryId, setCategoryId] = useState<number | undefined>()
     const [brandId, setBrandId] = useState<number | undefined>()
-    const [file, setFile] = useState<any>(null)
     const { categories } = useGetCategory({})?.data || {}
     const { brands } = useBrandById(categoryId || 0).data || {}
     const { brandCategories } = useBrandCategoryById(brandId || 0).data || {};
@@ -40,24 +39,15 @@ const DrawerModal = ({ open, update, handleCancel }: ModalPropType) => {
     }, [open, update, form])
 
     const handleSubmit = (values: any) => {
-        const selectedFile = file?.originFileObj || file;
-        if (!selectedFile) {
-            form.setFields([
-                {
-                    name: "file",
-                    errors: ["Please upload a file"],
-                },
-            ]);
-            return;
-        }
         const formData = new FormData();
         formData.append("name", values.name);
         formData.append("price", values.price);
         formData.append("category_id", values.category_id);
         formData.append("brand_id", values.brand_id);
         formData.append("brand_category_id", values.brand_category_id);
-        formData.append("files", selectedFile);
-        console.log(formData.entries(), 'formData')
+        values.files.fileList.forEach((file: any) => {
+            formData.append("files", file.originFileObj);
+        })
         createMutate(formData, {
             onSuccess: () => {
                 handleCancel();
@@ -83,8 +73,8 @@ const DrawerModal = ({ open, update, handleCancel }: ModalPropType) => {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
-                                name="name"
                                 label="Name"
+                                name="name"
                                 rules={[{ required: true, message: 'Please enter product name' }]}
                             >
                                 <Input placeholder="Please enter product name" />
@@ -92,8 +82,8 @@ const DrawerModal = ({ open, update, handleCancel }: ModalPropType) => {
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                name="price"
                                 label="Price"
+                                name="price"
                                 rules={[{ required: true, message: 'Please enter product price' }]}
                             >
                                 <Input
@@ -152,19 +142,19 @@ const DrawerModal = ({ open, update, handleCancel }: ModalPropType) => {
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                name="files"
                                 label="Product image"
-                                rules={[
-                                    {
-                                        required: true,
-                                        validator: () =>
-                                            file
-                                                ? Promise.resolve()
-                                                : Promise.reject("Please upload a file"),
-                                    },
-                                ]}
+                                name="files"
+                                rules={[{ required: true, message: "Select product image" }]}
                             >
-                                <Upload setFile={setFile} />
+                                <Upload
+                                    beforeUpload={() => false} // Prevent auto upload
+                                    listType="picture"
+                                    multiple
+                                >
+                                    <Button size="large" icon={<UploadOutlined />}>
+                                        Click to Upload
+                                    </Button>
+                                </Upload>
                             </Form.Item>
                         </Col>
                     </Row>
