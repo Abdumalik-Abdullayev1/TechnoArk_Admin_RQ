@@ -1,4 +1,4 @@
-import { Button, Space, Tooltip } from "antd"
+import { Button, Space, Tooltip, Image } from "antd"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { EditOutlined, ArrowsAltOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -78,6 +78,24 @@ const Index = () => {
       title: "Name",
       dataIndex: "name",
       key: "name"
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price"
+    },
+    {
+      title: "Product image",
+      dataIndex: "images",
+      key: "images",
+      render: (image_url: string) => (
+        <Image
+          width={50}
+          src={image_url}
+          alt="Product Image"
+          style={{ borderRadius: "5px", objectFit: "cover" }}
+        />
+      )
     },
     {
       title: "Action",

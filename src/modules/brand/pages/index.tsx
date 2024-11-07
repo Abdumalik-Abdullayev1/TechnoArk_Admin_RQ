@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Space, Tooltip } from "antd";
+import { Button, Space, Tooltip, Image } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useGetBrand } from '../hooks/queries';
@@ -47,6 +47,19 @@ const Index = () => {
             title: "Name",
             dataIndex: "name",
             key: "name"
+        },
+        {
+            title: "Brand img",
+            dataIndex: "image",
+            key: "image",
+            render: (image_url: string) => (
+                <Image
+                  width={50}
+                  src={image_url}
+                  alt="Product Image"
+                  style={{ borderRadius: "5px", objectFit: "cover" }}
+                />
+              )
         },
         {
             title: "Action",
